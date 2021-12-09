@@ -1,5 +1,4 @@
 # Sources Used
-# https://stackoverflow.com/questions/29815129/pandas-dataframe-to-list-of-dictionaries
 # 
 
 input_1 = (
@@ -16,6 +15,8 @@ input_2 = (
     'cash,false\n'
 )
 
+# Takes in a row and col_headers and returns a dict
+# with the col_header as key and row item as value 
 def parse_csv_helper(row, col_headers):
     if (len(row) == len(col_headers)):
         d = dict()
@@ -29,10 +30,11 @@ def parse_csv_helper(row, col_headers):
     return d
 
 def parse_csv(csv_input):
-    # Remove "," or "\n" characters from beginning and end of input
+    # Remove "," or "\n" characters from beginning and end of input.
+    # Failing to remove them will result in "" being passed to parse_csv_helper
     csv_input = csv_input.strip('\n,')
 
-    # Split first on new line, then on ,
+    # Split first on new line, then on ","" . This yields 2D arr of strings
     arr = [x.split(",") for x in csv_input.split('\n')]
     # Headers are at index 0
     headers = arr[0]
